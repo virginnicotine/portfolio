@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>auramalayya – Fullstack Engineer & Game Creator</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--fg:#f2f2f2;--mute:#7d7d82;--line:rgba(255,255,255,.09);
+--chrome:linear-gradient(180deg,#fff 0%,#c9c9cc 35%,#6b6b70 55%,#e8e8ea 80%,#9a9a9e 100%);
+--metal:linear-gradient(180deg,#f5f5f5,#b9b9bd 55%,#8e8e93);
+--card:linear-gradient(160deg,#1c1c1e,#0b0b0c 70%);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:radial-gradient(ellipse 80% 40% at 50% 0,#17171a,transparent 70%),var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;font-weight:300;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+.chrome{font-family:Unbounded,'Arial Black',sans-serif;font-weight:700;text-transform:uppercase;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.95) 50%,transparent 58%) no-repeat 150% 0/250% 100%,var(--chrome);animation:shim 6s ease-in-out infinite;-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.05;letter-spacing:.01em;filter:drop-shadow(0 2px 14px rgba(255,255,255,.12))}
+.light{font-weight:300;letter-spacing:-.03em;line-height:1}
+.mute{color:var(--mute)}.mono{font-family:'JetBrains Mono',monospace}
+.grain{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.06;animation:gr .7s steps(3) infinite;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>")}
+@keyframes gr{33%{transform:translate(-3%,2%)}66%{transform:translate(2%,-3%)}}
+/* nav */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;padding:14px 0;background:linear-gradient(var(--bg),transparent)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:Unbounded,sans-serif;font-weight:700;font-size:1rem}
+.pills{display:flex;gap:6px;padding:5px;border:1px solid var(--line);border-radius:12px;background:rgba(0,0,0,.5)}
+.pills a{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:8px;color:var(--mute)}
+.pills a:first-child{background:var(--metal);color:#111}
+@media(max-width:640px){.pills{display:none}}
+/* buttons */
+.btn{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:13px 24px;border-radius:10px;font-weight:500;transition:transform .2s,filter .2s;border:1px solid rgba(255,255,255,.18);background:#0c0c0d;color:var(--fg);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.btn.m{background:var(--metal);color:#111;border-color:#fff;box-shadow:inset 0 1px 0 #fff,0 6px 24px rgba(255,255,255,.12)}
+.btn:hover{filter:brightness(1.25)}
+/* avatar */
+.ava{border-radius:50%;padding:3px;overflow:hidden;flex:none;position:relative;box-shadow:0 0 24px rgba(255,255,255,.16)}.ava::before{content:"";position:absolute;inset:-60%;background:conic-gradient(#fff,#2a2a2d,#e6e6e8,#2a2a2d,#fff);animation:spin 3.5s linear infinite}
+.ava .in{border-radius:50%;overflow:hidden;width:100%;height:100%;background:#000;position:relative;z-index:1}
+.ava img,.ava svg{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.1)}
+.ava:hover .in{animation:gl .35s steps(2) 2}
+@keyframes gl{25%{transform:translate(-3px,1px);filter:invert(.15)}50%{transform:translate(3px,-2px)}75%{transform:translate(-2px,-1px)}}
+.scan::after{content:"";z-index:2;position:absolute;left:0;right:0;height:30%;top:-30%;background:linear-gradient(transparent,rgba(255,255,255,.4),transparent);animation:sc 2.6s linear infinite}
+@keyframes sc{to{top:130%}}
+/* hero */
+.hero{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;min-height:78vh;padding:30px 0 50px}
+.hero h1{font-size:clamp(2.2rem,6.5vw,4.6rem);margin:18px 0}
+.hero h1 small{display:block;font-family:Inter;font-weight:300;font-size:.38em;text-transform:none;letter-spacing:-.01em;background:none;color:var(--mute);-webkit-text-fill-color:var(--mute);margin-top:14px;filter:none}
+.tag{display:inline-flex;gap:8px;align-items:center;font-size:.7rem;padding:6px 12px;border:1px solid var(--line);border-radius:99px;color:var(--mute);background:#0b0b0c}
+.star{display:flex;justify-content:center}
+.star svg{width:min(80vw,380px);height:auto;animation:fl 6s ease-in-out infinite;transition:transform .2s}
+@keyframes fl{50%{transform:translateY(-14px) rotate(6deg)}}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.star{order:-1}}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:26px 0;border-block:1px solid var(--line);text-align:center;font-size:.78rem}
+.stats b{display:block;font-weight:500;color:var(--fg)}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+/* marquee */
+.marq{overflow:hidden;margin:34px 0;mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+.marq div{display:flex;width:max-content;animation:mq 30s linear infinite}
+.marq span{white-space:nowrap;padding:0 14px;font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.2em;color:var(--mute)}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* sections */
+section{padding:70px 0}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:34px;flex-wrap:wrap}
+.sec-h h2{font-size:clamp(1.8rem,4.5vw,3.2rem);margin:0}
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.card{grid-column:span 3;background:radial-gradient(320px circle at var(--mx,50%) var(--my,-20%),rgba(255,255,255,.09),transparent 60%),var(--card);border:1px solid var(--line);border-radius:24px;padding:26px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 20px 50px rgba(0,0,0,.5);transition:transform .3s,border-color .3s}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.22)}
+.card.wide{grid-column:span 6;display:grid;grid-template-columns:1.2fr .8fr;gap:26px}.card.third{grid-column:span 2}
+.card h3{margin:10px 0 0;font-size:clamp(1.3rem,3vw,2rem)}
+.card p{font-size:.88rem;line-height:1.65;color:#b4b4b9;margin:14px 0 0}
+.key{display:inline-grid;place-items:center;width:44px;height:36px;border-radius:9px;background:var(--metal);color:#111;font-family:'JetBrains Mono',monospace;font-size:.85rem;box-shadow:inset 0 1px 0 #fff,0 4px 14px rgba(0,0,0,.6)}
+.chip{display:inline-block;font-size:.68rem;padding:4px 10px;border:1px solid var(--line);border-radius:99px;margin:12px 6px 0 0;color:var(--mute)}
+.ph{border-radius:16px;border:1px solid var(--line);background:linear-gradient(135deg,#151517,#0a0a0b);display:grid;place-items:center;color:var(--mute);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:12px;min-height:150px;overflow:hidden;position:relative}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08) brightness(.92)}
+.card .btn{margin-top:20px}
+.fscan::after{content:"";position:absolute;left:0;right:0;height:35%;top:-35%;background:linear-gradient(transparent,rgba(255,255,255,.1),transparent);opacity:0;pointer-events:none}
+.fscan:hover::after{opacity:1;animation:sc 1.8s linear infinite}
+@media(max-width:760px){.card,.card.wide,.card.third{grid-column:span 6}.card.wide{grid-template-columns:1fr}}
+/* terminal */
+.term{border:1px solid var(--line);border-radius:24px;background:#030303;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7)}
+.term .bar{display:flex;gap:7px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line)}
+.term .bar i{width:10px;height:10px;border-radius:50%;background:#3a3a3e}
+.term .body{display:flex;gap:26px;padding:26px;flex-wrap:wrap}
+#typed{white-space:pre-wrap;font-size:.85rem;line-height:1.8;min-height:300px;flex:1;min-width:240px;color:#dcdcdc}
+.caret{display:inline-block;width:.6ch;background:#fff;animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;padding:0 26px 22px;font-size:.74rem;color:var(--mute)}
+.info span{color:var(--fg)}
+@media(max-width:640px){.info{grid-template-columns:1fr}}
+.egg{background:none;border:0;color:var(--mute);font:inherit;font-size:.72rem;padding:0 26px 24px;text-align:left}
+.egg:hover{color:#fff}
+/* social */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.three .card{grid-column:auto;text-align:center;padding:30px 22px}
+@media(max-width:760px){.three{grid-template-columns:1fr}}
+/* enter */
+.enter{display:flex;align-items:center;justify-content:space-between;padding:26px 34px;border-radius:22px;background:var(--metal);color:#111;box-shadow:inset 0 2px 0 #fff,0 20px 70px rgba(255,255,255,.1);font-family:Unbounded,sans-serif;font-weight:700;font-size:clamp(1.4rem,4vw,2.4rem);transition:filter .2s}
+.enter:hover{filter:brightness(1.1)}
+footer{padding:50px 0 60px;text-align:center}
+footer .chrome{font-size:clamp(1.2rem,3.5vw,2.2rem)}
+#cur,#cur2{position:fixed;left:0;top:0;pointer-events:none;z-index:300;border-radius:50%;opacity:0;transition:opacity .25s}
+#cur{width:6px;height:6px;margin:-3px 0 0 -3px;background:#fff;mix-blend-mode:difference}
+#cur2{width:30px;height:30px;margin:-15px 0 0 -15px;border:1px solid rgba(255,255,255,.45);transition:opacity .25s,width .25s,height .25s,margin .25s,border-color .25s}
+#cur2.big{width:54px;height:54px;margin:-27px 0 0 -27px;border-color:#fff}
+html.cc #cur,html.cc #cur2{opacity:1}
+html.cc,html.cc *{cursor:none!important}
+[data-credit]:not(:empty)::before{content:"\266A  "}
+
+
+.amb{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.amb i{position:absolute;width:60vmax;height:60vmax;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.07),transparent 65%);animation:drift 22s ease-in-out infinite alternate}
+.amb i:first-child{left:-20vmax;top:-10vmax}.amb i:last-child{right:-25vmax;bottom:-25vmax;animation-duration:30s}
+@keyframes drift{to{transform:translate(12vmax,8vmax) scale(1.2)}}
+main,footer{position:relative;z-index:2}
+@keyframes shim{from{background-position:150% 0,0 0}to{background-position:-60% 0,0 0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn:hover::after{left:130%}
+.btn.m::after{animation:bs 4.5s ease-in-out infinite}
+@keyframes bs{0%,60%{left:-60%}100%{left:140%}}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.1) 50%,transparent 60%);transform:translateX(-120%);transition:transform 1s;pointer-events:none}
+.card:hover::before{transform:translateX(120%)}
+.key{animation:kp 3.5s ease-in-out infinite}
+@keyframes kp{50%{box-shadow:inset 0 1px 0 #fff,0 0 18px rgba(255,255,255,.45)}}
+.enter{position:relative;overflow:hidden}
+.enter::after{content:"";position:absolute;top:0;bottom:0;width:30%;left:-40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.8),transparent);transform:skewX(-20deg);animation:bs 3.5s ease-in-out infinite}
+.enter svg{animation:spin 8s linear infinite}
+.star{transition:transform .2s ease-out}
+.hero>div{position:relative;z-index:1}
+.hero>.sparks{position:absolute;inset:0;z-index:0;pointer-events:none}
+.sp{position:absolute;width:var(--s);height:var(--s);background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);opacity:0;animation:tw var(--d) ease-in-out infinite}
+@keyframes tw{50%{opacity:.9;transform:scale(1.5) rotate(45deg)}}
+.rv{opacity:0}.rv.in{opacity:1;animation:rvi .9s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rvi{from{opacity:0;transform:translateY(30px)}}
+.player{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;align-items:center;gap:12px;padding:7px 16px 7px 7px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:rgba(10,10,11,.78);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 10px 40px rgba(0,0,0,.6);font-size:.68rem}
+#pp{width:38px;height:38px;border-radius:50%;border:0;background:var(--metal);display:grid;place-items:center;padding:0}
+.eq{display:flex;gap:2px;align-items:flex-end;height:16px}.eq i{width:3px;height:25%;background:#fff;border-radius:2px}
+.playing .eq i{animation:eqb .7s ease-in-out infinite alternate}.eq i:nth-child(2){animation-delay:.15s!important}.eq i:nth-child(3){animation-delay:.3s!important}.eq i:nth-child(4){animation-delay:.45s!important}
+@keyframes eqb{to{height:100%}}
+.tt{display:flex;flex-direction:column;max-width:170px}.tt b{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tt small{color:var(--mute)}
+#vol{width:64px;accent-color:#fff}
+.shake{animation:shk .4s}@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@media(max-width:640px){#vol{display:none}}
+#intro{position:fixed;inset:0;z-index:200;background:#000;display:grid;place-items:center;overflow:hidden;transition:opacity 1.8s ease,transform 1.8s ease,filter 1.8s ease}
+#intro.out{opacity:0;transform:scale(1.06);filter:blur(8px);pointer-events:none}
+#intro .ig{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+#intro .ig svg{width:min(90vmin,700px);opacity:calc(.12 + var(--k,0)*.55);transform:scale(calc(.5 + var(--k,0)*1.3)) rotate(calc(var(--k,0)*120deg))}
+#il,.iw{grid-area:1/1;position:relative;z-index:3;text-align:center;padding:0 6vw}
+#il{transform:scale(calc(1 + var(--b,0)*.04))}
+#il .ln{font-family:Unbounded,'Arial Black',sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(2rem,9vw,6.5rem);line-height:1.05;color:#fff;text-shadow:0 0 30px rgba(255,255,255,calc(.2 + var(--b,0)*.5))}
+#il .w{display:inline-block;margin:0 .15em;animation:wi .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes wi{from{opacity:0;transform:translateY(40px) scale(1.3);filter:blur(14px)}}
+#intro.wait #il{display:none}
+.iw{display:none}#intro.wait .iw{display:block}
+.iw small{display:block;margin-top:16px;color:var(--mute);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase}
+#iskip{position:absolute;right:20px;top:calc(20px + env(safe-area-inset-top,0px));z-index:5;padding:9px 16px}
+#ibar{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.1);z-index:5}#ibar i{display:block;height:100%;width:0;background:#fff;box-shadow:0 0 12px #fff}
+#iflash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:6}
+#iflash.flash{animation:fl2 1.8s ease-out}@keyframes fl2{0%{opacity:0}18%{opacity:.4}100%{opacity:0}}
+main.dropin{animation:dropin 2.2s cubic-bezier(.25,.6,.2,1)}
+@keyframes dropin{from{opacity:0;transform:scale(1.04);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="amb"><i></i><i></i></div>
+<div id="intro" class="wait"><div class="ig"><svg viewBox="0 0 200 200"><path fill="#fff" d="M100 6C104 66 134 96 194 100 134 104 104 134 100 194 96 134 66 104 6 100 66 96 96 66 100 6Z"/></svg></div><div id="il"></div><div class="iw"><button id="ienter" class="btn m" style="font-family:inherit">Enter</button><small>sound on</small><small data-credit style="margin-top:8px"></small></div><button id="iskip" class="btn" style="font-family:inherit">Skip &rsaquo;</button><div id="ibar"><i></i></div><div id="iflash"></div></div>
+<div id="cur"></div><div id="cur2"></div>
+
+<header><div class="wrap">
+  <a href="#top" class="logo chrome" style="font-size:1rem">auramalayya</a>
+  <nav class="pills"><a href="#top">Home</a><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  <div class="ava" style="width:42px;height:42px"><div class="in" data-avatar></div></div>
+</div></header>
+
+<main id="top" class="wrap">
+  <div class="hero"><div class="sparks" id="sparks"></div>
+    <div>
+      <span class="tag">● available for projects · virginnicotine</span>
+      <h1 class="chrome">Fullstack Engineer &amp; Game Creator<small>From enterprise databases to little pixelated worlds (´｡• ᵕ •｡`)</small></h1>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a data-link="github" class="btn m">GitHub</a><a data-link="telegram" class="btn">Telegram</a></div>
+    </div>
+    <div class="star" id="star"><svg viewBox="0 0 200 200"><defs><radialGradient id="g"><stop offset="0" stop-color="#fff"/><stop offset=".25" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="b"><feGaussianBlur stdDeviation="1.6"/></filter></defs>
+      <circle cx="100" cy="100" r="70" fill="url(#g)" opacity=".35"/>
+      <path filter="url(#b)" fill="#fff" d="M100 6C104 66 134 96 194 100 134 104 104 134 100 194 96 134 66 104 6 100 66 96 96 66 100 6Z"/>
+      <circle cx="100" cy="100" r="10" fill="#fff"/></svg></div>
+  </div>
+
+  <div class="stats mute"><div><b>Enterprise</b>Supabase · Java</div><div><b>Game Dev</b>Python · Ren'Py · Unity · Godot</div><div><b>EdTech</b>games for school students</div><div><b>Motion</b>After Effects · Canva</div></div>
+  <div class="marq"><div id="mq"></div></div>
+
+  <section id="work">
+    <div class="sec-h"><h2 class="chrome">Selected Work</h2><span class="mute mono" style="font-size:.75rem">01 – 06</span></div>
+    <div class="grid">
+      <article class="card wide fscan">
+        <div>
+          <span class="key">01</span>
+          <h3 class="chrome">Factory Information System</h3>
+          <p>Full-stack system for an industrial enterprise. Stores business-critical data: drawings and specifications. The database runs on Supabase.</p>
+          <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Java</span><span class="chip">Python</span><span class="chip">Supabase</span><br>
+          <a data-link="factory" class="btn m">View Live →</a>
+        </div>
+        <div class="ph" data-img="factory">[ DB schema – blur data ]</div>
+      </article>
+      <article class="card">
+        <span class="key">02</span><h3 class="chrome">My Fault Is Your Salvation</h3>
+        <p>Visual novel. Game development and narrative design. UI animations made in After Effects.</p>
+        <div class="ph" data-img="novel" style="margin-top:16px;min-height:190px">[ cover ]</div>
+        <span class="chip">Python</span><span class="chip">Ren'Py</span><span class="chip">After Effects</span><br>
+        <a data-link="novel" class="btn">Telegram →</a>
+      </article>
+      <article class="card">
+        <span class="key">03</span><h3 class="chrome">Ecto Stats</h3>
+        <p>Information system. Database design and backend. Full database architecture documentation is on GitHub, schemas drawn in DBeaver.</p>
+        <div class="ph" data-img="ecto" style="margin-top:16px;min-height:190px">[ screenshot ]</div>
+        <span class="chip">PostgreSQL</span><span class="chip">DBeaver</span><span class="chip">Python</span><br>
+        <a data-link="ecto" class="btn">GitHub →</a>
+      </article>
+      <article class="card third"><span class="key">04</span><h3 class="chrome">Physics Mini-Game</h3><p>Educational physics game for school students.</p><span class="chip">Unity</span></article>
+      <article class="card third"><span class="key">05</span><h3 class="chrome">Geography Mini-Game</h3><p>Educational geography game for school students.</p><span class="chip">Godot</span></article>
+      <article class="card third"><span class="key">06</span><h3 class="chrome">Geography Quiz</h3><p>Geography quiz game built on Ren'Py. Testing knowledge in a game format.</p><span class="chip">Ren'Py</span><span class="chip">Python</span></article>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sec-h"><h2 class="chrome">About</h2><span class="mute" style="font-size:.85rem">Student. Developer. Creator.</span></div>
+    <div class="three" style="margin-bottom:26px">
+      <div class="card" style="text-align:left"><h3 class="chrome" style="font-size:1.1rem">I am</h3><p>auramalayya / virginnicotine.<br>Studying, developing, creating.<br>Industrial databases, fullstack, games.</p></div>
+      <div class="card" style="text-align:left"><h3 class="chrome" style="font-size:1.1rem">I make</h3><p>Educational games for school students: physics, geography, quizzes.<br>Stack: Python, Java, C++, C#, JavaScript.<br>Data: PostgreSQL, Supabase.</p></div>
+      <div class="card" style="text-align:left"><h3 class="chrome" style="font-size:1.1rem">I also do</h3><p>Motion and assets: After Effects, Canva.<br>Downtime: CS2, Brawl Stars.<br>Languages: RU native, EN C1, DE A2.</p></div>
+    </div>
+    <div class="term">
+      <div class="bar"><i></i><i></i><i></i><span class="mute mono" style="font-size:.7rem;margin-left:10px">auramalayya@portfolio:~</span></div>
+      <div class="body">
+        <div class="ava scan" style="width:150px;height:150px"><div class="in" data-avatar></div></div>
+        <div id="typed" class="mono"></div><span class="caret">&nbsp;</span>
+      </div>
+      <div class="info"><div>LANG: <span>RU native · EN C1 · DE A2</span></div><div>TOOLS: <span>VS Code · GitHub · Timeweb · DBeaver · Canva · AE</span></div><div>ENGINES: <span>Unity · Godot · Ren'Py</span></div><div>DB: <span>SQL · PostgreSQL · Supabase</span></div></div>
+      <button class="egg mono" id="egg">[Initiate downtime protocol...]</button><div id="eggout" class="mono" style="padding:0 26px 22px;font-size:.8rem"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h" style="justify-content:center"><h2 class="chrome">Social</h2></div>
+    <div class="three">
+      <div class="card"><span class="key">01</span><p>New projects, dev notes and behind the scenes of game development.</p><a data-link="telegram" class="btn m">Telegram</a></div>
+      <div class="card"><span class="key">02</span><p>Code, database documentation and open repositories.</p><a data-link="github" class="btn m">GitHub</a></div>
+      <div class="card"><span class="key">03</span><p>Current status: <span id="status"></span></p><a data-link="telegram" class="btn">Say hi</a></div>
+    </div>
+  </section>
+
+  <section id="contact" style="padding-top:20px"><a data-link="telegram" class="enter"><span>Enter</span><svg width="44" height="44" viewBox="0 0 200 200"><path fill="#111" d="M100 6C104 66 134 96 194 100 134 104 104 134 100 194 96 134 66 104 6 100 66 96 96 66 100 6Z"/></svg></a></section>
+</main>
+
+<footer><div class="wrap"><p class="chrome">Stay curious · Keep creating · Have fun</p><p class="mute mono" style="font-size:.7rem;margin-top:24px"><span data-credit style="display:block;margin-bottom:8px"></span>© 2026 auramalayya / virginnicotine</p></div></footer>
+
+<audio id="bgm" loop preload="none"></audio>
+<div class="player" id="player"><button id="pp" aria-label="Play or pause music"><svg id="pi" width="20" height="20" viewBox="0 0 24 24"></svg></button><div class="eq"><i></i><i></i><i></i><i></i></div><div class="tt"><b id="ttl"></b><small id="sub"></small></div><input id="vol" type="range" min="0" max="1" step=".05" value=".5" aria-label="Volume"></div>
+<script>
+/* ============ НАСТРОЙКИ: меняй только здесь ============ */
+const LINKS = {
+  github:   "https://github.com/virginnicotine",   // https://github.com/твой-ник
+  telegram: "https://t.me/interIudiebot",   // https://t.me/твой-ник
+  factory:  "#",   // https://cr307869.tw1.ru
+  novel:    "#",
+  ecto:     "https://github.com/virginnicotine/ectostats",
+};
+const IMAGES = {   // путь к файлу из папки assets (например "assets/avatar.jpg"); пустая строка = заглушка
+  avatar:  "assets/avatar.jpg",
+  factory: "assets/factory.jpg",
+  novel:   "assets/novel.jpg",
+  ecto:    "assets/ecto.jpg"
+};
+const STATUS = "Coding / Gaming (CS2, Brawl Stars)";
+const MUSIC = { src: "assets/music.mp3", title: "Bei Dir", artist: "Devilish Polo" };   // mp3 лежит в папке assets
+const INTRO = {            // интро: текст песни до дропа, потом открывается сайт
+  enabled: true,           // false = без интро
+  drop: 8.0,              // секунда трека, на которой дроп
+  bpm: 124,                // темп трека (текст пульсирует в такт), 0 = без пульса
+  beatOffset: 0.23,           // секунда первого бита
+  lines: [                 // t = секунда появления строки (интро 8 секунд)
+    { t: 0.2, text: "aeaeae" },
+    { t: 1.3, text: "im tired" },
+    { t: 2.6, text: "3 am" },
+    { t: 3.8, text: "still debugging" },
+    { t: 5.4, text: "one more build" },
+    { t: 6.8, text: "ok go" }
+  ]
+};
+/* ======================================================= */
+document.querySelectorAll("[data-link]").forEach(a=>{const u=LINKS[a.dataset.link];a.href=u||"#";if(u&&u!=="#"){a.target="_blank";a.rel="noopener"}});
+const fb='<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#151517"/><circle cx="50" cy="40" r="20" fill="#9a9a9e"/><path d="M12 100c4-28 24-36 38-36s34 8 38 36z" fill="#5f5f64"/></svg>';
+document.querySelectorAll("[data-avatar]").forEach(n=>{n.innerHTML=IMAGES.avatar?'<img alt="avatar" src="'+IMAGES.avatar+'">':fb});
+document.querySelectorAll("[data-img]").forEach(n=>{const s=IMAGES[n.dataset.img];if(s){n.insertAdjacentHTML("beforeend",'<img alt="" src="'+s+'">')}});
+document.getElementById("status").textContent=STATUS;
+const it="SUPABASE • POSTGRESQL • DBEAVER • JAVA • PYTHON • C++ • AFTER EFFECTS • UNITY • REN'PY • TIMEWEB • ".repeat(2);
+document.getElementById("mq").innerHTML="<span>"+it+"</span><span>"+it+"</span>";
+(function(){const c=document.getElementById("cur"),c2=document.getElementById("cur2"),H=document.documentElement;if(!matchMedia("(pointer:fine)").matches)return;
+let x=0,y=0,rx=0,ry=0;
+addEventListener("pointermove",e=>{if(e.pointerType==="touch")return;x=e.clientX;y=e.clientY;H.classList.add("cc");c.style.transform=c2.style.transform="translate("+x+"px,"+y+"px)"});
+addEventListener("pointerover",e=>{c2.classList.toggle("big",!!(e.target.closest&&e.target.closest("a,button,input")))});
+H.addEventListener("mouseleave",()=>H.classList.remove("cc"));
+})();
+const lines=["> whoami","Student. Developer. Creator.","I build serious industrial systems,","but sometimes I make games.","","> ls ./for-school-kids","physics-game/  geography-game/  geography-quiz/","","> echo $MISSION","Making learning feel like playing.","","> status --current","Current Status: "+STATUS];
+const out=document.getElementById("typed");let li=0,ci=0,buf="";
+function type(){if(li>=lines.length)return;const L=lines[li];if(ci<L.length){buf+=L[ci++];out.textContent=buf;setTimeout(type,28)}else{buf+="\n";out.textContent=buf;li++;ci=0;setTimeout(type,260)}}
+new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){type();o.disconnect()}},{threshold:.3}).observe(out);
+document.getElementById("egg").onclick=()=>{document.getElementById("eggout").textContent='-> "Playing CS2 / Brawl Stars" ♡ gg wp'};
+
+/* music */
+const bgm=document.getElementById("bgm"),pl=document.getElementById("player"),pp=document.getElementById("pp");
+const CR=MUSIC.artist?MUSIC.title+" – "+MUSIC.artist:MUSIC.title;document.getElementById("ttl").textContent=MUSIC.src?CR:"no track yet";document.querySelectorAll("[data-credit]").forEach(n=>n.textContent=MUSIC.src?CR:"");
+document.getElementById("sub").textContent=MUSIC.src?"tap to play":"add it in the code";
+if(MUSIC.src)bgm.src=MUSIC.src;bgm.volume=.5;
+const PLAY='<path d="M8 5v14l11-7z" fill="#111"/>',PAUSE='<path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="#111"/>';
+function setI(p){document.getElementById("pi").innerHTML=p?PAUSE:PLAY;pl.classList.toggle("playing",p)}setI(false);
+pp.onclick=()=>{if(!MUSIC.src){pl.classList.add("shake");setTimeout(()=>pl.classList.remove("shake"),450);return}
+ if(bgm.paused){bgm.play().then(()=>setI(true)).catch(()=>{})}else{bgm.pause();setI(false)}};
+document.getElementById("vol").oninput=e=>{bgm.volume=e.target.value};
+/* glints, reveal, sparkles */
+document.querySelectorAll(".card").forEach(c=>c.addEventListener("pointermove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px")}));
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll(".card,.sec-h,.stats,.term,.enter").forEach((el,i)=>{el.classList.add("rv");el.style.animationDelay=(i%3)*90+"ms";io.observe(el)});
+const sp=document.getElementById("sparks");
+for(let i=0;i<16;i++){const q=document.createElement("i");q.className="sp";q.style.cssText="left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;--s:"+(6+Math.random()*12)+"px;--d:"+(2+Math.random()*4)+"s;animation-delay:"+Math.random()*4+"s";sp.appendChild(q)}
+const st=document.getElementById("star");
+addEventListener("pointermove",e=>{st.style.transform="translate("+((e.clientX/innerWidth-.5)*30)+"px,"+((e.clientY/innerHeight-.5)*30)+"px)"});
+
+/* intro: lyrics -> drop -> site */
+(function(){
+ const it=document.getElementById("intro");
+ if(!INTRO.enabled){it.remove();return}
+ document.body.style.overflow="hidden";
+ if(MUSIC.src)bgm.preload="auto";
+ const L=document.getElementById("il"),bar=document.querySelector("#ibar i"),fl=document.getElementById("iflash");
+ let useAudio=false,t0=0,idx=-1,done=false,started=false;
+ const now=()=>useAudio?bgm.currentTime:(performance.now()-t0)/1000;
+ function show(txt){L.innerHTML="";const d=document.createElement("div");d.className="ln";txt.split(" ").forEach((w,i)=>{const s=document.createElement("span");s.className="w";s.textContent=w;s.style.animationDelay=i*.09+"s";d.appendChild(s)});L.appendChild(d)}
+ function drop(){if(done)return;done=true;fl.classList.add("flash");it.classList.add("out");document.body.style.overflow="";document.querySelector("main").classList.add("dropin");setTimeout(()=>it.remove(),2000)}
+ function tick(){if(done)return;const t=now(),k=Math.min(1,t/INTRO.drop);
+  it.style.setProperty("--k",k);bar.style.width=k*100+"%";
+  if(INTRO.bpm){const ph=(((t-INTRO.beatOffset)*INTRO.bpm/60)%1+1)%1;it.style.setProperty("--b",Math.max(0,1-ph*2.2))}
+  let n=-1;INTRO.lines.forEach((l,i)=>{if(t>=l.t)n=i});if(n!==idx){idx=n;if(n>=0)show(INTRO.lines[n].text)}
+  if(t>=INTRO.drop){drop();return}requestAnimationFrame(tick)}
+ function seekPlay(sec){const go=()=>{bgm.currentTime=sec;return bgm.play()};
+  if(bgm.readyState<1)return new Promise((res,rej)=>{bgm.addEventListener("loadedmetadata",()=>go().then(res,rej),{once:true});bgm.load()});return go()}
+ document.getElementById("ienter").onclick=()=>{if(started)return;started=true;it.classList.remove("wait");
+  const go=()=>{t0=performance.now();requestAnimationFrame(tick)};
+  if(MUSIC.src){seekPlay(0).then(()=>{useAudio=true;setI(true);go()}).catch(go)}else go()};
+ document.getElementById("iskip").onclick=()=>{if(done)return;started=true;it.classList.remove("wait");
+  if(MUSIC.src)seekPlay(INTRO.drop).then(()=>setI(true)).catch(()=>{});drop()};
+ const e2=document.getElementById("ienter");
+})();
+</script>
+</body>
+</html>
